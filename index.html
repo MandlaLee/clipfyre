@@ -3,39 +3,92 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ClipFyre — turn long videos into shorts</title>
-  <meta name="description" content="ClipFyre transcribes long videos, finds the moments worth clipping, and cuts them into shorts — automatically.">
+  <title>ClipFyre — drop a video, get shorts</title>
+  <meta name="description" content="Drop a long video. ClipFyre finds the moments, cuts the shorts, and burns in captions.">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <main>
-    <h1>Clip<span class="fyre">Fyre</span> 🔥</h1>
-    <p class="tagline">Turn long videos into shorts that catch.</p>
+  <header class="topbar">
+    <a class="brand" href="./">Clip<span class="fyre">Fyre</span> 🔥</a>
+    <nav>
+      <a href="https://github.com/MandlaLee/clipfyre">GitHub</a>
+    </nav>
+  </header>
 
-    <p class="lede">
-      Point ClipFyre at a 60-minute video. Get back the 5–10 moments
-      that stand on their own — transcribed, detected, and cut automatically.
-    </p>
-
-    <div class="cta">
-      <a class="btn" href="https://github.com/YOURNAME/clipfyre">View on GitHub</a>
-      <code>pip install clipfyre</code>
-    </div>
-
-    <section class="how">
-      <h2>How it works</h2>
-      <ol>
-        <li><strong>Transcribe</strong> — Whisper turns speech into timestamped text.</li>
-        <li><strong>Detect</strong> — segments scored for hook strength and self-containment.</li>
-        <li><strong>Cut</strong> — ffmpeg slices the winners into 9:16 shorts.</li>
-      </ol>
+  <main class="tool">
+    <!-- ===== Drop zone ===== -->
+    <section id="dropzone" class="dropzone" tabindex="0" aria-label="Drop a video here">
+      <input id="fileinput" type="file" accept="video/*" hidden>
+      <div class="dz-inner">
+        <div class="dz-icon">🎬</div>
+        <h1>Drop a video to chop</h1>
+        <p class="dz-sub">MP4, MOV, MKV — up to a few hours. Nothing uploads; this is a local-first tool.</p>
+        <button class="btn" id="browseBtn" type="button">Choose a file</button>
+      </div>
     </section>
 
-    <pre><code>python -m clipfyre input.mp4 --out ./shorts --top 5</code></pre>
+    <!-- ===== Preview + options (hidden until file chosen) ===== -->
+    <section id="workspace" class="workspace" hidden>
+      <div class="preview">
+        <video id="video" controls playsinline></video>
+        <div class="filemeta">
+          <strong id="filename">—</strong>
+          <span id="filesize" class="muted">—</span>
+        </div>
+      </div>
 
-    <footer>
-      <p>MIT licensed · Built for creators who think in long-form.</p>
-    </footer>
+      <form id="options" class="options" onsubmit="return false;">
+        <div class="row">
+          <label>
+            Shorts to make
+            <input id="top" type="number" min="1" max="20" value="5">
+          </label>
+          <label>
+            Min length (s)
+            <input id="minlen" type="number" min="5" max="120" value="15">
+          </label>
+          <label>
+            Max length (s)
+            <input id="maxlen" type="number" min="15" max="180" value="60">
+          </label>
+        </div>
+
+        <div class="row toggles">
+          <label class="check"><input id="captions" type="checkbox" checked> Burn captions (word-by-word)</label>
+          <label class="check"><input id="vertical" type="checkbox" checked> Vertical 9:16 crop</label>
+          <label class="check"><input id="lyrics" type="checkbox"> Lyrics mode (music videos)</label>
+        </div>
+
+        <div class="actions">
+          <button class="btn big" id="chopBtn" type="button">🔥 Chop it</button>
+          <button class="btn ghost" id="resetBtn" type="button">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== Progress ===== -->
+    <section id="progress" class="progress" hidden>
+      <h2>Working…</h2>
+      <ol class="steps">
+        <li data-step="transcribe"><span class="dot"></span> Transcribe audio (Whisper)</li>
+        <li data-step="detect"><span class="dot"></span> Detect the moments worth clipping</li>
+        <li data-step="cut"><span class="dot"></span> Cut + crop + burn captions</li>
+      </ol>
+      <pre id="log" class="log"></pre>
+      <p class="hint">
+        The browser can’t run Whisper/ffmpeg here. This demo builds a local CLI command
+        using the count and length settings. Captions, crop, and lyrics controls are not
+        supported by the CLI yet.
+      </p>
+      <pre id="cmd" class="cmd"></pre>
+      <button class="btn ghost" id="copyCmd" type="button">Copy command</button>
+    </section>
   </main>
+
+  <footer class="foot">
+    <p>MIT licensed · Local-first · <a href="https://github.com/MandlaLee/clipfyre">Source on GitHub</a></p>
+  </footer>
+
+  <script src="assets/app.js"></script>
 </body>
 </html>
