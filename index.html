@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClipFyre — turn long videos into shorts</title>
+  <meta name="description" content="ClipFyre transcribes long videos, finds the moments worth clipping, and cuts them into shorts — automatically.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <main>
+    <h1>Clip<span class="fyre">Fyre</span> 🔥</h1>
+    <p class="tagline">Turn long videos into shorts that catch.</p>
+
+    <p class="lede">
+      Point ClipFyre at a 60-minute video. Get back the 5–10 moments
+      that stand on their own — transcribed, detected, and cut automatically.
+    </p>
+
+    <div class="cta">
+      <a class="btn" href="https://github.com/YOURNAME/clipfyre">View on GitHub</a>
+      <code>pip install clipfyre</code>
+    </div>
+
+    <section class="how">
+      <h2>How it works</h2>
+      <ol>
+        <li><strong>Transcribe</strong> — Whisper turns speech into timestamped text.</li>
+        <li><strong>Detect</strong> — segments scored for hook strength and self-containment.</li>
+        <li><strong>Cut</strong> — ffmpeg slices the winners into 9:16 shorts.</li>
+      </ol>
+    </section>
+
+    <pre><code>python -m clipfyre input.mp4 --out ./shorts --top 5</code></pre>
+
+    <footer>
+      <p>MIT licensed · Built for creators who think in long-form.</p>
+    </footer>
+  </main>
+</body>
+</html>
