@@ -1,0 +1,49 @@
+{
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "../index.html",
+    "distDir": ".."
+  },
+  "package": {
+    "productName": "ClipFyre",
+    "version": "0.1.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "dialog": {
+        "open": true
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": [
+          "$HOME/**",
+          "$RESOURCE/**"
+        ]
+      }
+    },
+    "bundle": {
+      "active": true,
+      "identifier": "com.clipfyre.app",
+      "targets": [
+        "dmg"
+      ],
+      "resources": [
+        "binaries/clipfyre_engine"
+      ]
+    },
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "title": "ClipFyre",
+        "width": 1000,
+        "height": 760,
+        "minWidth": 720,
+        "minHeight": 600
+      }
+    ]
+  }
+}

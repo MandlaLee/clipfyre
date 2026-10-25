@@ -1,1 +1,4 @@
 openai-whisper>=20231117
+opencv-python-headless>=4.8
+pysubs2>=1.6
+scipy>=1.9,<1.14

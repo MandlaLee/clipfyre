@@ -82,7 +82,9 @@ function buildCommand() {
   const top = $('top').value || 5;
   const min = $('minlen').value || 15;
   const max = $('maxlen').value || 60;
-  return `python -m clipfyre ${shellQuote(name)} --out ./shorts --top ${top} --min ${min} --max ${max}`;
+  const caps = $('captions').checked ? ' --captions' : '';
+  const vertical = $('vertical').checked ? '' : ' --no-vertical';
+  return `python -m clipfyre ${shellQuote(name)} --out ./shorts --top ${top} --min ${min} --max ${max}${caps}${vertical}`;
 }
 
 function setStep(name, state) {

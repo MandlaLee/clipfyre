@@ -23,6 +23,19 @@ that stand on their own.
 git clone https://github.com/YOURNAME/clipfyre.git
 cd clipfyre
 pip install -r requirements.txt
+brew install ffmpeg
 
 # transcribe + detect + cut in one go
 python -m clipfyre input.mp4 --out ./shorts --top 5
+```
+
+Add `--captions` to burn word-by-word captions into each short. Vertical face-aware
+reframing is enabled by default; pass `--no-vertical` to preserve the source aspect ratio.
+
+## macOS desktop scaffold
+
+The Tauri v1 shell lives in `src-tauri/`. Install the Rust toolchain and Tauri v1 CLI
+(`cargo install tauri-cli --version "^1.5"`), then run `cargo tauri dev` from `src-tauri/`
+to launch the existing web UI. In development, the Rust bridge starts the Python package
+from the repository root. A packaged app expects the PyInstaller engine at
+`src-tauri/binaries/clipfyre_engine`; the engine packaging step has not been added yet.

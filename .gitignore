@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 .venv/
+src-tauri/target/
 shorts/
 *.mp4
 *.wav
